@@ -9,6 +9,7 @@
 using namespace std;
 
 class {
+    string path = "DataBase";
 public:
     //ищет в файле user.txt прользовател€ с конкретным логином и паролем(только дл€ входа в систему) 
     bool foundUser(string type, string login, string password) {
@@ -36,10 +37,6 @@ public:
         return result;
     }
 
-    /*
-        ƒќѕ»—ј“№!
-        UPWRITE!
-    */
     vector<string> getAllCoursesInSystem() {//возвращает все курсы системы
         vector<string> result;
         //...
@@ -55,12 +52,29 @@ public:
         //(shorter: main problem: parse all teachers` files and read all courses into vector )
         return result;
     }
-    /*
-        ƒќѕ»—ј“№!
-        UPWRITE!
-    */
 
-    void addTest(string pathToDir);//в эту папку записывает новый тест
+    void addTest(string nameOfTest, string nameOfCourse, int countOfQuestions) {//в эту папку записывает новый тест
+        ofstream out(path + "\\" + nameOfCourse + "\\" + nameOfTest + ".txt");
+        if (!out.is_open())cerr << "ERRROOORRR! File if not opened!" << endl;
+        Printer printer;
+        for (int i = 0; i < countOfQuestions; i++)
+        {
+            string str;
+            getline(cin, str);//question
+            printer.printLine(out, str + "\n");
+            getline(cin, str);//ans1
+            printer.printLine(out, str + "\n");
+            getline(cin, str);//ans2
+            printer.printLine(out, str + "\n");
+            getline(cin, str);//ans3
+            printer.printLine(out, str + "\n");
+            getline(cin, str);//ans4
+            printer.printLine(out, str + "\n");
+            getline(cin, str);//answer(truthful)
+            printer.printLine(out, str + "\n");
+        }
+        ofstream statFile(path + "\\" + nameOfCourse + "\\" + "StatisticTest" + nameOfTest + ".txt");
+    }
     void addLecture(string pathToDir);//в эту папку записывает новую лекцию
     void removeLecture(string pathToDir);
     void removeTest(string pathToDir);
