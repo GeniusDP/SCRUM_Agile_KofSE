@@ -202,6 +202,8 @@ void User::workInCourse(string courseName) {
         //student
         int movementType = 0;
         do {
+            cout << "This is course " << courseName << endl;
+            cout << "==============================================================================" << endl;
             cout << "Choose what type of activity do you want to do:\n";
             cout << "0)Leave this course!\n";
             cout << "1)Read lectures.\n";
@@ -209,9 +211,9 @@ void User::workInCourse(string courseName) {
 
             cin >> movementType;
             switch (movementType) {
-            case 0: break;//выход из из курса(go out from the course)
-            //case 1: this->goToLectures(); break;
-            //case 2: this->goToTests(); break;
+                case 0: break;//выход из из курса(go out from the course)
+                //case 1: this->goToLectures(); break;
+                //case 2: this->goToTests(); break;
             }
             system("pause");
             system("cls");
