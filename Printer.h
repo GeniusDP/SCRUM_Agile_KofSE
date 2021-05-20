@@ -64,4 +64,18 @@ public:
         return User(type, login, password);
     }
 
+    void AddTest(){
+        cout<<"Enter name of course: ";
+        string course;
+        cin>>course;
+        cout<<"Enter name of lecture: ";
+        string lecture;
+        cin>>lecture;
+        cout<<"Enter count of questions: ";
+        int countOfQuestion;
+        cin>>countOfQuestion;
+        cout<<"Please enter questions in next format:\nQuestion\nAnswer 1\nAnswer 2\nAnswer 3\nAnswer 4\nRight answer\n"
+        database.addTest("Test"+lecture, course, countOfQuestion);
+    }
+
 };
