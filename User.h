@@ -8,7 +8,7 @@
 #include <sstream>
 using namespace std;
 
-class {
+class DataBase{
     string path = "DataBase";
 public:
     //ищет в файле user.txt прользователя с конкретным логином и паролем(только для входа в систему) 
@@ -83,7 +83,7 @@ public:
     void readTest(string pathToDir);
 
 
-}DataBase;
+};
 
 class User {
     string login;
@@ -109,10 +109,11 @@ public:
 //написана практическ полностью
 //за исключением функционала добавления курса, который еще не понятно, будет ли у учителя.
 void User::goToUserCabinet() {
+    DataBase dataBase;
     system("cls");
     if (this->type == "teacher") {
         //teacher
-        vector<string> courses = DataBase.getCoursesForTeacher(this->login);
+        vector<string> courses = dataBase.getCoursesForTeacher(this->login);
         int movementType = 0;
         do {
             cout << "This is your own cabinet\n";
@@ -138,7 +139,7 @@ void User::goToUserCabinet() {
     }
     else {
         //student
-        vector<string> allCourses = DataBase.getAllCoursesInSystem();
+        vector<string> allCourses = dataBase.getAllCoursesInSystem();
         int movementType = 0;
         do {
             cout << "This is your own cabinet\n";

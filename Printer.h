@@ -11,6 +11,7 @@ using namespace std;
 
 
 class Printer {
+    DataBase dataBase;
 public:
     void printLine(ostream& out, string buffer) {
         out << buffer;
@@ -58,7 +59,7 @@ public:
             cin >> login;
             cout << "Enter your password: ";
             cin >> password;
-        } while (!DataBase.foundUser(type, login, password));
+        } while (!dataBase.foundUser(type, login, password));
         cout << "We have got such user!";
         return User(type, login, password);
     }
