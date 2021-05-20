@@ -60,6 +60,15 @@ public:
         UPWRITE!
     */
 
+    void addTest(string pathToDir);//в эту папку записывает новый тест
+    void addLecture(string pathToDir);//в эту папку записывает новую лекцию
+    void removeLecture(string pathToDir);
+    void removeTest(string pathToDir);
+    void getStatistics(string directorypath);
+    void readLecture(string pathToDir);
+    void readTest(string pathToDir);
+
+
 }DataBase;
 
 class User {
@@ -74,16 +83,9 @@ public:
     }
     //void addNewCourse();
     void workInCourse(string courseName);
-    void addTest(string pathToDir);//в эту папку записывает новый тест
-    void addLecture(string pathToDir);//в эту папку записывает новую лекцию
-    void removeLecture(string pathToDir);
-    void removeTest(string pathToDir);
-    void getStatistics(string directorypath);
     void goToUserCabinet();
     void goToLectures();
     void goToTests();
-    void readLecture(string pathToDir);
-    void readTest(string pathToDir);
 };
 
 
