@@ -8,7 +8,6 @@
 #include <sstream>
 using namespace std;
 
-
 class {
 public:
     //ищет в файле user.txt прользователя с конкретным логином и паролем(только для входа в систему) 
@@ -53,7 +52,7 @@ public:
         //you need to parse directory Database
         //and read all files .txt, without users.txt
         //they consist of courses(each on its line)
-        //(shorter: main problem: parse all teachers` files and read all courses шnto vector )
+        //(shorter: main problem: parse all teachers` files and read all courses into vector )
         return result;
     }
     /*
@@ -83,6 +82,8 @@ public:
     void goToUserCabinet();
     void goToLectures();
     void goToTests();
+    void readLecture(string pathToDir);
+    void readTest(string pathToDir);
 };
 
 
@@ -191,7 +192,10 @@ void User::workInCourse(string courseName) {
                 case 2: this->addTest(pathToDir); break;
                 case 3: this->removeLecture(pathToDir); break;
                 case 4: this->removeTest(pathToDir); break;
-                case 5: this->getStatistics(pathToDir); break;*/
+                case 5: this->getStatistics(pathToDir); break;
+                case 6: this->readLecture(pathToDir); break;
+                case 7: this->readTest(pathToDir); break;
+                */
             }
             system("pause");
             system("cls");

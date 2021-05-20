@@ -13,13 +13,9 @@ using namespace std;
 class Printer {
 public:
     void printLine(ostream& out, string buffer) {
-        out << buffer << endl;
+        out << buffer;
     }
-};
 
-
-class Registrator {
-public:
     void makeNewUser() {
         cout << "Hello! This is registration form!\n";
         string typeOfUser = "none";
@@ -51,11 +47,7 @@ public:
         system("pause");
         system("cls");
     }
-};
 
-
-class LogIner {
-public:
     User logIntoSystem() {
         string login, password, type;
         cout << "Hello! Let is log into system.\n";
@@ -70,4 +62,5 @@ public:
         cout << "We have got such user!";
         return User(type, login, password);
     }
+
 };

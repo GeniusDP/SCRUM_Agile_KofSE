@@ -6,7 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include "User.h"
-#include "LogIner_Registrator_Printer.h"
+#include "Printer.h"
 
 using namespace std;
 
@@ -16,19 +16,18 @@ using namespace std;
 //*************************************************************************
 int main()
 {
-    cout << "Hello on our system!\nDo you want to Register or Login?\n";
+    Printer printer;
+    printer.printLine(cout, "Hello on our system!\nDo you want to Register or Login?\n");
     string str;
     do {
         cin >> str;
     } while (!(str == "Register" || str == "Login"));
     system("cls");
     if (str == "Register") {
-        Registrator aRegistrator;
-        aRegistrator.makeNewUser();
+        printer.makeNewUser();
     }
     else {
-        LogIner aLogIner;
-        User user = aLogIner.logIntoSystem();
+        User user = printer.logIntoSystem();
         cout << endl; system("pause");
         user.goToUserCabinet();
     }
