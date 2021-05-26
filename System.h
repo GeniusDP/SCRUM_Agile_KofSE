@@ -28,10 +28,15 @@ public:
 			}
 			else {
 				//logging in
+				bool haveFound;
 				do{
 					user = printer.Login();
-				} while (!dataBase.foundUser(user));
+					haveFound = dataBase.foundUser(user);
+					if (haveFound)cout << "Hello!\n";
+					else cout << "We don`t have such user\n";
+					system("pause");
+				} while (!haveFound);
+				printer.goIntoUserCabinet(user);
 			}
 	}
-
 };

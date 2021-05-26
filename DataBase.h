@@ -7,8 +7,15 @@
 #include <fstream>
 #include <sstream>
 #include "User.h"
+#include <cassert>
+#include <filesystem>
+#include "FilenameFunctions.h"
 
 using namespace std;
+using namespace filesystem;
+
+
+
 
 class DataBase {
 	string path;
@@ -32,21 +39,14 @@ public:
 
     vector<string> getAllCoursesInSystem() {//возвращает все курсы системы
         vector<string> result;
-        //...
-        //нужно пройтись по директории DataBase(и только!)
-        // и считать все файлы .txt, кроме users.txt
-        // в них построчно записаны курсы
-        //(короче задача в том, чтобы пройти по файлам учителей и считать их в вектор)
-
-        //...
-        //you need to parse directory Database
-        //and read all files .txt, without users.txt
-        //they consist of courses(each on its line)
-        //(shorter: main problem: parse all teachers` files and read all courses into vector )
+        ifstream in(path + "courses.txt");
+        assert(in.is_open());
+        string str;
+        while (getline(in, str)) {
+            result.push_back(str);
+        }
         return result;
     }
-
-
 
     vector<string> getCoursesForTeacher(string teacherLogin) {//возвращает все курсы, которые есть у ”„»“≈Ћя с логином teacherLogin
         ifstream in("Database\\" + teacherLogin + ".txt");
@@ -58,8 +58,6 @@ public:
         }
         return result;
     }
-
-
 
     void addTest(string nameOfTest, string nameOfCourse, int countOfQuestions) {//в эту папку записывает новый тест
         ofstream out(path + "\\" + nameOfCourse + "\\" + nameOfTest + ".txt");
@@ -83,11 +81,18 @@ public:
         ofstream statFile(path + "\\" + nameOfCourse + "\\" + "StatisticTest" + nameOfTest + ".txt");
     }
 
-
-
     void makeNewUser(User user) {
         ofstream out(path + "users.txt", ios_base::app);
         out << user.getType() << " " << user.getLogin() << " " << user.getPassword() << endl;
     }
 
+    vector<string> getFilesFromCourseWithExtension(string courseName, string extention) {
+        vector<string> result;
+        for (auto& entry : directory_iterator(path + courseName)) {
+            string file = entry.path().u8string();
+            if(ext(file) == extention)
+                result.push_back(entry.path().u8string());
+        }
+        return result;
+    }
 };

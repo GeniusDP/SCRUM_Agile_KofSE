@@ -10,6 +10,7 @@
 #include "Printer.h"
 #include "User.h"
 #include "Course.h"
+#include "FilenameFunctions.h"
 using namespace std;
 
 
@@ -66,4 +67,120 @@ public:
         }
         system("cls");
     }
+
+    void goIntoUserCabinet(User currUser) {
+        while(true){
+            system("cls");
+            cout << "<<< USER CABINET >>>" << endl;
+            cout << "Hello, " << currUser.getLogin() << endl;
+            cout << "What type of movement do you want to do?\n";
+            if (currUser.getType() == "student") {
+                cout << "0.Log out" << endl;
+                DataBase bd;
+                vector<string> courses = bd.getAllCoursesInSystem();
+                for (int i = 0; i < courses.size(); i++) {
+                    cout << i + 1 << "." << courses[i] << endl;
+                }
+                int typeOfMove = 0;
+                cin >> typeOfMove;
+                if (typeOfMove == 0) {
+                    system("cls");
+                    cout << "Thanks for using our site!" << endl;
+                    system("pause"); system("cls");
+                    return;
+                }
+                else {
+                    //написать проверку на корректность входных данных
+                    //перейти в курс
+                    goToCourse(currUser, courses[typeOfMove-1]);
+                }
+            }
+            else
+                if (currUser.getType() == "teacher") {
+                    cout << "0.Log out" << endl;
+                    DataBase bd;
+                    vector<string> courses = bd.getCoursesForTeacher(currUser.getLogin());
+                    for (int i = 0; i < courses.size(); i++) {
+                        cout << i + 1 << "." << courses[i] << endl;
+                    }
+                    int typeOfMove = 0;
+                    cin >> typeOfMove;
+                    if (typeOfMove == 0) {
+                        system("cls");
+                        cout << "Thanks for using our site!" << endl;
+                        system("pause"); system("cls");
+                        return;
+                    }
+                    else {
+                        //написать проверку на корректность входных данных
+                        //перейти в курс
+                        goToCourse(currUser, courses[typeOfMove - 1]);
+                    }
+                }
+        }
+    
+    }//end sub
+    
+    void goToCourse(User user, string currCourseName) {
+        DataBase bd;
+        Course currCourse(currCourseName);
+        while (true) {
+            system("cls");
+            cout << "<<<This is course " << currCourseName << ">>>" << endl;
+            cout << "What can you do: " << endl;
+            if (user.getType() == "student") {
+                //student
+                cout << "0.Go out from course" << endl;
+                currCourse.setLectures(bd.getFilesFromCourseWithExtension(currCourseName, "lec"));
+                currCourse.setTests(bd.getFilesFromCourseWithExtension(currCourseName, "test"));
+                int cnt = 0;
+                for (auto f : currCourse.getLectures()) {
+                    cout << ++cnt << ". Read lecture : " << removeDirNames(f) << endl;
+                }
+                for (auto f : currCourse.getTests()) {
+                    cout << ++cnt << ". Pass test : " << removeDirNames(f) << endl;
+                }
+                int typeOfMove = 0;
+                cin >> typeOfMove;
+                if (typeOfMove == 0) {
+                    system("cls");
+                    return;
+                }
+                else {
+                    //написать проверку на корректность входных данных
+                    //перейти в соответствующий раздел
+
+                }
+            }
+            else if (user.getType() == "teacher") {
+                //teacher
+                cout << "0.Go out from course" << endl;
+                currCourse.setLectures(bd.getFilesFromCourseWithExtension(currCourseName, "lec"));
+                currCourse.setTests(bd.getFilesFromCourseWithExtension(currCourseName, "test"));
+                int cnt = 0;//номер действия
+                for (auto f : currCourse.getLectures()) {
+                    cout << ++cnt << ". Read my lecture : " << removeDirNames(f) << endl;
+                }
+                for (auto f : currCourse.getTests()) {
+                    cout << ++cnt << ". Read my test : " << removeDirNames(f) << endl;
+                }
+                int lecPos, testPos;
+                cout << (lecPos = ++cnt) << ". Add lecture to course" << endl;
+                cout << (testPos = ++cnt) << ". Add test to course" << endl;
+                int typeOfMove = 0;
+                cin >> typeOfMove;
+                if (typeOfMove == 0) {
+                    system("cls");
+                    return;
+                }
+                else {
+                    //написать проверку на корректность входных данных
+                    //перейти в соответствующий раздел
+
+                }
+            }
+
+        }//end while
+
+    }//end sub
 };

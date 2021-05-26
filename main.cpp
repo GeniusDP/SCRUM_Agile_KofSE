@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include "System.h"
+#include "DataBase.h"
 
 using namespace std;
 #define wantToLogin 0
