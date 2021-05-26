@@ -5,7 +5,7 @@
 using namespace std;
 
 string ext(string filePath) {//returns extention of file
-    int dotPos = 0;
+    int dotPos = 1e9;
     for (int i = 0; i < filePath.size(); i++) {
         if (filePath[i] == '.') { dotPos = i; break; }
     }
@@ -27,5 +27,17 @@ string removeDirNames(string fileName) {
         result = fileName[pos] + result;
         pos--;
     }
+    return result;
+}
+
+
+string changeExtention(string fileName, string newExtention) {
+    string result;
+    int i = 0;
+    while (i < fileName.size() && fileName[i] != '.') {
+        result += fileName[i];
+        i++;
+    }
+    result += '.' + newExtention;
     return result;
 }

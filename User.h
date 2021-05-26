@@ -13,6 +13,7 @@ class User {
     string login;
     string password;
     string type;
+    vector<bool> passedTests;
 public:
     User(string type="", string login="", string password="") {
         this->login = login;

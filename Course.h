@@ -26,10 +26,14 @@ public:
 	void setTests(vector<string> tests) {
 		this->tests = tests;
 	}
-	vector<string> getLectures() {
+	vector<string>& getLectures() {
 		return lectures;
 	}
-	vector<string> getTests() {
+	vector<string>& getTests() {
 		return tests;
+	}
+
+	string getName() {
+		return name;
 	}
 };

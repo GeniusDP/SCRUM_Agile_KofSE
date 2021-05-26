@@ -84,6 +84,9 @@ public:
     void makeNewUser(User user) {
         ofstream out(path + "users.txt", ios_base::app);
         out << user.getType() << " " << user.getLogin() << " " << user.getPassword() << endl;
+        if (user.getType() == "teacher") {
+            ofstream out(path + user.getLogin() + ".txt");
+        }
     }
 
     vector<string> getFilesFromCourseWithExtension(string courseName, string extention) {
@@ -94,5 +97,18 @@ public:
                 result.push_back(entry.path().u8string());
         }
         return result;
+    }
+
+    void createFileAndPrintTextIntoFile(string filePath, string textToPut) {
+        ofstream out(filePath);//create and open
+        out << textToPut;
+        out.close();
+    }
+
+    void appendFile(string pathToFile, string info) {
+        ofstream out(pathToFile, ios_base::app);
+        assert(out.is_open());
+        out << info;
+        out.close();
     }
 };

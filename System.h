@@ -18,8 +18,7 @@ class System {
 	Printer printer;
 	User user;
 public:
-	System(){
-		
+	System(){	
 			int response = printer.Welcom();//0 - register, 1 - login
 			if (!response) {
 				//registration

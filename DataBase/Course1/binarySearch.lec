@@ -1,0 +1,4 @@
+
+Binary search
+is a kind of search, when you have got a sorted array
+and find element, using key by O(logn).
