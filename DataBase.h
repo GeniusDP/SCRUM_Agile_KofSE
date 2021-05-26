@@ -10,7 +10,7 @@
 #include <cassert>
 #include <filesystem>
 #include "FilenameFunctions.h"
-
+#include <set>
 using namespace std;
 using namespace filesystem;
 
@@ -100,7 +100,7 @@ public:
     }
 
     void createFileAndPrintTextIntoFile(string filePath, string textToPut) {
-        ofstream out(filePath);//create and open
+        ofstream out(filePath, ios_base::app);//create and open
         out << textToPut;
         out.close();
     }
@@ -111,4 +111,26 @@ public:
         out << info;
         out.close();
     }
+
+    set<string> getAllPassedByStudentTests(string userName, string currCourseName){
+        set<string> result;
+        vector<string> allStatisticsFilesInTheCourse = getFilesFromCourseWithExtension(currCourseName, "stat");
+        for (auto filePath : allStatisticsFilesInTheCourse) {
+            ifstream in(filePath);
+            string str;
+            while (getline(in, str)) {
+                stringstream ss;
+                ss << str;
+                string currUserName;
+                int scoreForTheTest;
+                ss >> currUserName >> scoreForTheTest;
+                if (currUserName == userName && scoreForTheTest == 100) {
+                    result.insert(filePath);
+                }
+            }
+        }
+        return result;
+    }//end sub
+
+
 };

@@ -11,6 +11,8 @@
 #include "User.h"
 #include "Course.h"
 #include "FilenameFunctions.h"
+#include <set>
+
 using namespace std;
 
 
@@ -117,7 +119,25 @@ public:
                         goToCourse(currUser, courses[typeOfMove - 1]);
                     }
                 }
-        }
+                else
+                    if (currUser.getType() == "admin") {
+                        cout << "0.Log out" << endl;
+                        cout << "1.Add new course" << endl;
+                        int typeOfMove = 0;
+                        cin >> typeOfMove;
+                        if (typeOfMove == 0) {
+                            system("cls");
+                            cout << "Thanks for using our site!" << endl;
+                            system("pause"); system("cls");
+                            return;
+                        }
+                        else {
+                            //написать проверку на корректность входных данных
+                            //Санин метод добавления курса
+
+                        }
+                    }
+        }//while(true)
     
     }//end sub
     
@@ -130,6 +150,7 @@ public:
             cout << "What can you do: " << endl;
             if (user.getType() == "student") {
                 //student
+                set<string> passedByStudentTests = bd.getAllPassedByStudentTests(user.getLogin(), currCourse.getName());
                 cout << "0.Go out from course" << endl;
                 currCourse.setLectures(bd.getFilesFromCourseWithExtension(currCourse.getName(), "lec"));
                 currCourse.setTests(bd.getFilesFromCourseWithExtension(currCourse.getName(), "test"));
@@ -138,8 +159,16 @@ public:
                     cout << ++cnt << ". Read lecture : " << removeDirNames(f) << endl;
                 }
                 for (auto f : currCourse.getTests()) {
-                    cout << ++cnt << ". Pass test : " << removeDirNames(f) << endl;
+                    cout << ++cnt << ". Pass test : " << removeDirNames(f);
+                    if (passedByStudentTests.count(changeExtention(f, "stat"))) {
+                        cout << " ---> passed";
+                    }
+                    cout << endl;
                 }
+                
+                if (currCourse.getTests().size() == passedByStudentTests.size())
+                        cout << "YOU HAVE PASSED ALL TESTS IN THIS COURSE!" << endl;
+
                 int typeOfMove = 0;
                 cin >> typeOfMove;
                 if (typeOfMove == 0) {
@@ -304,7 +333,7 @@ public:
             vector<string> variants;
             for (int i = 0; i < 4; i++) {
                 getline(in, str);
-                cout << i << ") " << str << endl;
+                cout << char(i+'a') << ") " << str << endl;
             }
             string answer, usersAnswer;
             getline(in, answer);//read answer
@@ -315,7 +344,7 @@ public:
             }
             cout << "*-----------------------------------------------------------------*" << endl;
         }
-        bd.appendFile(changeExtention(testName, "stat"), string(user.getLogin() + " " + to_string(rightAnswers) + "/" + to_string(countQuestions) + "\n"));
+        bd.appendFile(changeExtention(testName, "stat"), string(user.getLogin() + " " + to_string(rightAnswers * 100 / countQuestions) + "\n"));
         cout << "!!!Your score: " << to_string(rightAnswers) + "/" + to_string(countQuestions) << endl;
         system("pause");
         system("cls");
