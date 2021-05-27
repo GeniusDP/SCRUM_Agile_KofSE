@@ -361,5 +361,17 @@ public:
         }
         system("pause");
     }
+    
+    string DownloadLecture(){
+    	system("cls");
+    	string path;
+        cout << "<<<" << "Enter path to file: " << path << endl;
+		while(){
+			cout << "<<<" << "Path isn`t correct! " << endl;
+			cout << "<<<" << "Enter path to file: " << path << endl;
+		}
+        system("pause");
+        return path;
+	}
 
 };
