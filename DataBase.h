@@ -19,6 +19,51 @@ using namespace filesystem;
 
 class DataBase {
 	string path;
+    //DataBase\t.txt
+    string GetTeacherFromFileName(string filename) {
+        string result = "";
+        for (int i = 9; i < filename.size() - 4; i++) {
+            result += filename[i];
+        }
+        return result;
+    }
+
+    string GetFileNameFromTeacherName(string filename) {
+        cout << "HEllo!" << endl;
+        return "DataBase\\" + filename + ".txt";
+    }
+
+    void AddCourseToTeachersAndMakeItsOwnDirectory(string name, vector<string> teachers, vector<int> to_add) {
+        create_directory("DataBase\\" + name);
+        ofstream courses("DataBase\\courses.txt", std::ios_base::app);
+        courses << name << endl;
+        courses.close();
+        for (auto& x : to_add) {
+            cout << "x = " << x << endl;
+            cout << "size " << teachers.size() << endl;
+            ofstream fout(GetFileNameFromTeacherName(teachers[x]), std::ios_base::app);
+            fout << name << '\n';
+            fout.close();
+        }
+        
+    }
+
+    vector<string> GetAllTeachers() {
+        vector<string> teachers;
+        string directory = "DataBase";
+        for (const auto& x : directory_iterator(directory)) {
+            if (x.is_regular_file() && x.path().string() != "DataBase\\courses.txt" && x.path().string() != "DataBase\\users.txt") {
+                teachers.push_back(GetTeacherFromFileName(x.path().string()));
+            }
+        }
+        return teachers;
+    }
+
+    bool IsAlreadyThere(vector<int> numbers, int number) {
+        if (find(numbers.begin(), numbers.end(), number) == numbers.end()) return false;
+        else return true;
+    }
+
 public:
 	DataBase() {
 		path = "DataBase\\";
@@ -140,5 +185,70 @@ public:
         }
         return result;
     }//end sub
+
+    void downloadFile(string path) {
+        ofstream out("Downloads\\" + removeDirNames(path) + ".lec");
+        ifstream in(path);
+        assert(out.is_open());
+        assert(in.is_open());
+        string str;
+        while (getline(in, str)) {
+            out << str << endl;
+        }
+        in.close();
+        out.close();
+    }
+
+    //this
+
+    void SubmenuOfNewCourseCreation() {
+        system("cls");
+        cout << "Enter the name of the new course(one word): ";
+        string name;
+        cin >> name;
+        vector<string> teachers = GetAllTeachers();
+        cout << "Select the teachers who will be the owners of this course.\n";
+        cout << "For example: \"1 3 6 0\". (0 to enter results and leave).\n";
+        cout << "Available teachers:\n";
+        int something = 1;
+        for (const auto& x : teachers) {
+            cout << something << ". " << teachers[something - 1] << '\n';
+            something++;
+        }
+        vector<int> numbers;
+        int NumberOfTheTeacherToAdd = -1;
+        while (NumberOfTheTeacherToAdd != 0) {
+            cout << "Enter the number of teacher to add to course or zero to exit: ";
+            cin >> NumberOfTheTeacherToAdd;
+            if (IsAlreadyThere(numbers, NumberOfTheTeacherToAdd - 1)) {
+                cout << "This teacher already in the list!\n";
+            }
+            else if (NumberOfTheTeacherToAdd == 0 && numbers.size() >= 1) {
+                cout << "You exited!\n";
+            }
+            else if (NumberOfTheTeacherToAdd == 0 && numbers.size() == 0) {
+                cout << "You cannot just make a corse and not gave permissions for some teachers!!\n";
+                NumberOfTheTeacherToAdd = -1;
+            }
+            else if (NumberOfTheTeacherToAdd > teachers.size()) {
+                cout << "There is less number of teachers...\n";
+            }
+            else if (NumberOfTheTeacherToAdd < 0) {
+                cout << "There is no negative teachers :)\n";
+            }
+            else {
+                numbers.push_back(NumberOfTheTeacherToAdd - 1);
+                cout << "Teacher " + teachers[NumberOfTheTeacherToAdd - 1] + " added to the course.\n";
+            }
+            if (numbers.size() == teachers.size()) {
+                cout << "Now you're entered all the teachers available in the system!\n";
+                NumberOfTheTeacherToAdd = 0;
+            }
+        }
+        cout << "Adding course...\n";
+        AddCourseToTeachersAndMakeItsOwnDirectory(name, teachers, numbers);
+        cout << "Done! Course " + name + " added!\n";
+    }
+
 
 };

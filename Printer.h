@@ -137,7 +137,7 @@ public:
                         else {
                             //написать проверку на корректность входных данных
                             //Санин метод добавления курса
-
+                            DataBase().SubmenuOfNewCourseCreation();
                         }
                     }
         }//while(true)
@@ -171,7 +171,8 @@ public:
                     }
                     cout << endl;
                 }
-                
+                int moveIsDownload;
+                cout << (moveIsDownload = ++cnt) << ". Download lecture." << endl;
                 if (currCourse.getTests().size() == passedByStudentTests.size())
                         cout << "YOU HAVE PASSED ALL TESTS IN THIS COURSE!" << endl;
 
@@ -193,6 +194,11 @@ public:
                             system("pause");
                             cin.ignore(1);
                             passTest(user, currCourse, currCourse.getTests()[typeOfMove - 1 - currCourse.getLectures().size()]);                //to pass test
+                        }
+                        else if (typeOfMove == moveIsDownload) {
+                            //скачать лекцию
+                            string pathToLecture = DownloadLecture(currCourse);                                                             //downloading lecture
+                            bd.downloadFile(pathToLecture);
                         }
                 }
             }
@@ -383,13 +389,20 @@ public:
         system("pause");
     }
     
-    string DownloadLecture(){
+    string DownloadLecture(Course currCourse){//only for student
     	system("cls");
     	string path;
-        cout << "<<<" << "Enter path to file: " << path << endl;
-		while(){
+        cout << "<<<" << "Enter path to file what do you want to download: " << endl;
+        cin.ignore(1);
+        getline(cin, path);
+        path = "DataBase\\" + currCourse.getName() + "\\" + path;
+		while(ext(path)=="test"){
+            system("cls");
+            cout << path << endl;
 			cout << "<<<" << "Path isn`t correct! " << endl;
-			cout << "<<<" << "Enter path to file: " << path << endl;
+			cout << "<<<" << "Enter path to file: " << endl;
+            getline(cin, path);
+            path = "DataBase\\" + currCourse.getName() + "\\" + path;
 		}
         system("pause");
         return path;
