@@ -71,6 +71,9 @@ public:
     }
 
     void goIntoUserCabinet(User currUser) {
+        setlocale(LC_ALL, "rus");
+        SetConsoleCP(1251);
+        SetConsoleOutputCP(1251);
         while(true){
             system("cls");
             cout << "<<< USER CABINET >>>" << endl;
@@ -142,6 +145,9 @@ public:
     }//end sub
     
     void goToCourse(User user, string currCourseName) {
+        setlocale(LC_ALL, "rus");
+        SetConsoleCP(1251);
+        SetConsoleOutputCP(1251);
         DataBase bd;
         Course currCourse(currCourseName);
         while (true) {
@@ -239,6 +245,9 @@ public:
     }//end sub
 
     void readLecture(string currCourseName, string lecturePath) {
+        setlocale(LC_ALL, "rus");
+        SetConsoleCP(1251);
+        SetConsoleOutputCP(1251);
         system("cls");
         cout << "<<<" << "Lecture: " << removeDirNames(lecturePath) << ">>>" << endl;
         ifstream in(lecturePath);
@@ -250,6 +259,9 @@ public:
     }
 
     void addLecture(Course& currCourse) {
+        setlocale(LC_ALL, "rus");
+        SetConsoleCP(1251);
+        SetConsoleOutputCP(1251);
         system("cls");
         cout << "Ok. Let is add new lecture to course " << currCourse.getName() << " !" << endl;
         string lectureName;
@@ -269,6 +281,9 @@ public:
     }
     
     void addTest(Course& currCourse) {
+        setlocale(LC_ALL, "rus");
+        SetConsoleCP(1251);
+        SetConsoleOutputCP(1251);
         system("cls");
         cout << "Ok. Let is add new test to course " << currCourse.getName() << " !" << endl;
         string testName;
@@ -318,6 +333,9 @@ public:
     }//end sub
 
     void passTest(User& user, Course currCourse, string testName) {
+        setlocale(LC_ALL, "rus");
+        //SetConsoleCP(1251);
+        //SetConsoleOutputCP(1251);
         system("cls");
         DataBase bd;
         int countQuestions = 0, rightAnswers = 0;
@@ -351,6 +369,9 @@ public:
     }//end sub
 
     void readStatistics(string currCourseName, string testPath) {
+        setlocale(LC_ALL, "rus");
+        SetConsoleCP(1251);
+        SetConsoleOutputCP(1251);
         system("cls");
         cout << "<<<" << "Statistics on test: " << removeDirNames(testPath) << ">>>" << endl;
         ifstream in( changeExtention(testPath, "stat") );

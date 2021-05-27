@@ -60,6 +60,9 @@ public:
     }
 
     void addTest(string nameOfTest, string nameOfCourse, int countOfQuestions) {//в эту папку записывает новый тест
+        setlocale(LC_ALL, "ukr");
+        SetConsoleCP(1251);
+        SetConsoleOutputCP(1251);
         ofstream out(path + "\\" + nameOfCourse + "\\" + nameOfTest + ".txt");
         if (!out.is_open())cerr << "ERRROOORRR! File if not opened!" << endl;
         for (int i = 0; i < countOfQuestions; i++)
@@ -100,12 +103,18 @@ public:
     }
 
     void createFileAndPrintTextIntoFile(string filePath, string textToPut) {
+        setlocale(LC_ALL, "ukr");
+        SetConsoleCP(1251);
+        SetConsoleOutputCP(1251);
         ofstream out(filePath, ios_base::app);//create and open
         out << textToPut;
         out.close();
     }
 
     void appendFile(string pathToFile, string info) {
+        setlocale(LC_ALL, "ukr");
+        SetConsoleCP(1251);
+        SetConsoleOutputCP(1251);
         ofstream out(pathToFile, ios_base::app);
         assert(out.is_open());
         out << info;
@@ -131,6 +140,5 @@ public:
         }
         return result;
     }//end sub
-
 
 };

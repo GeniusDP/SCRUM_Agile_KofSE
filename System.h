@@ -19,6 +19,9 @@ class System {
 	User user;
 public:
 	System(){	
+		setlocale(LC_ALL, "ukr");
+		SetConsoleCP(1251);
+		SetConsoleOutputCP(1251);
 			int response = printer.Welcom();//0 - register, 1 - login
 			if (!response) {
 				//registration
