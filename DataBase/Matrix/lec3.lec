@@ -1,0 +1,75 @@
+Ось рішення деяких варіантів на C++. Порівняйте їх зі своїми :)
+
+void Variant1(int a, int b, int **arr) {
+    for (int i = 0; i < a; i++) {
+        for (int j = 0; j < b; j++) {
+            if (i % 2 == 0) {
+                arr[i][j] = i * b + (j + 1);
+            }
+            else {
+                arr[i][j] = i * b + (b - j);
+            }
+        }
+    }
+}
+
+void Variant14(int** arr, int a) {
+    for (int i = 0; i < a; i++) {
+        for (int j = 0; j < a; j++) {
+            if ((i+j)%2) {
+                arr[i][j] = 0;
+            }
+            else {
+                arr[i][j] = 1;
+            }
+        }
+    }
+}
+
+void Variant12(int** matrix, int rowsCount, int columnsCount){
+    int currentNumber = 1;
+            bool directionUp = true;
+
+            for (int j = 0; j <= columnsCount / 2; j++)
+            {
+                if (directionUp)
+                {
+                    for (int i = rowsCount - 1; i >= 0; i--)
+                    {
+                        matrix[i][j] = currentNumber++;
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < rowsCount; i++)
+                    {
+                        matrix[i][j] = currentNumber++;
+                    }
+                }
+
+                directionUp = !directionUp;
+            }
+
+            currentNumber = 1;
+            directionUp = true;
+
+            for (int j = columnsCount - 1; j >= columnsCount / 2; j--)
+            {
+                if (directionUp)
+                {
+                    for (int i = rowsCount - 1; i >= 0; i--)
+                    {
+                        matrix[i][j] = currentNumber++;
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < rowsCount; i++)
+                    {
+                        matrix[i][j] = currentNumber++;
+                    }
+                }
+
+                directionUp = !directionUp;
+            }
+}
