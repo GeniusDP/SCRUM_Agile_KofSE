@@ -1,6 +1,6 @@
 teacher GeniusDP qwerty
 student bogdan_zaranik 1234
-teacher Sasha qwerty
 student bogdasya 1234
 student s 1
 teacher t 1
+admin admin kakoito
